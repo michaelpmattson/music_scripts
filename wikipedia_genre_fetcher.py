@@ -23,6 +23,13 @@ class WikipediaGenreFetcher:
         data = response.json()
         pages = data.get("query", {}).get("pages", {})
         page = next(iter(pages.values()), {})
+
+        if 'redirects' in page:
+            # If a redirect exists, fetch the new title and retry
+            new_title = page['redirects'][0]['to']
+            print(f"Redirected to: {new_title}")
+            return self.fetch_wikipedia_genre(new_title)  # Recursive call with the new title
+
         return page.get("revisions", [{}])[0].get('*', '')
 
     def parse_infobox(self):
@@ -60,9 +67,9 @@ class WikipediaGenreFetcher:
         return self.extract_genre()
 
 # Example usage
-fetcher = WikipediaGenreFetcher("Billie_Jean")
-album_genre = fetcher.fetch_genre()
-print(f"Album Genre: {album_genre}")
+# fetcher = WikipediaGenreFetcher("Billie_Jean")
+# album_genre = fetcher.fetch_genre()
+# print(f"Album Genre: {album_genre}")
 
 
 # Example: Fetch genre for the album "Thriller (Michael Jackson album)"
