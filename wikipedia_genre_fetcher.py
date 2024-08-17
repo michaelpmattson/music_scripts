@@ -23,13 +23,16 @@ class WikipediaGenreFetcher:
         pages = data.get("query", {}).get("pages", {})
         page = next(iter(pages.values()), {})
 
-        if 'redirects' in page:
-            # If a redirect exists, fetch the new title and retry
-            new_title = page['redirects'][0]['to']
+        content = page.get("revisions", [{}])[0].get('*', '')
+
+        # Check for #REDIRECT and follow the link
+        redirect_match = re.match(r'#REDIRECT \[\[(.*?)\]\]', content, re.IGNORECASE)
+        if redirect_match:
+            new_title = redirect_match.group(1)
             print(f"Redirected to: {new_title}")
             return self.fetch_wikipedia_content(new_title)  # Recursive call with the new title
 
-        return page.get("revisions", [{}])[0].get('*', '')
+        return content
 
     def parse_infobox(self):
         """Parse the infobox content."""
@@ -69,7 +72,7 @@ class WikipediaGenreFetcher:
 
 # Example usage
 fetcher = WikipediaGenreFetcher()
-album_genre = fetcher.fetch_genre("Big Lizard in My Backyard")
+album_genre = fetcher.fetch_genre("Big Lizard In My Backyard")
 print(f"Album Genre: {album_genre}")
 
 
