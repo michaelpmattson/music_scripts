@@ -5,12 +5,12 @@ from discogs_genre_fetcher import DiscogsFetcher
 class GenreFetcher:
     def __init__(self, user_agent):
         ####: TODO: test other titles and cleanup
-        self.wikipedia_genre_fetcher = WikipediaGenreFetcher("Big Lizard in My Backyard")
+        self.wikipedia_genre_fetcher = WikipediaGenreFetcher()
         self.discogs_genre_fetcher = DiscogsFetcher(user_agent)
 
     def fetch_genres(self, artist_name, album_title):
         # Fetch genres from Wikipedia
-        wikipedia_genres = self.wikipedia_genre_fetcher.fetch_genre()
+        wikipedia_genres = self.wikipedia_genre_fetcher.fetch_genre(album_title)
 
         # Fetch genres from Discogs
         discogs_genres, discogs_styles = self.discogs_genre_fetcher.fetch_genre(artist_name, album_title)

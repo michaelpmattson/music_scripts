@@ -29,7 +29,7 @@ class WikipediaGenreFetcher:
         redirect_match = re.match(r'#REDIRECT \[\[(.*?)\]\]', content, re.IGNORECASE)
         if redirect_match:
             new_title = redirect_match.group(1)
-            print(f"Redirected to: {new_title}")
+            print(f"Wikipedia redirected to: {new_title}")
             return self.fetch_wikipedia_content(new_title)  # Recursive call with the new title
 
         return content
@@ -71,9 +71,9 @@ class WikipediaGenreFetcher:
 
 
 # Example usage
-fetcher = WikipediaGenreFetcher()
-album_genre = fetcher.fetch_genre("Big Lizard In My Backyard")
-print(f"Album Genre: {album_genre}")
+# fetcher = WikipediaGenreFetcher()
+# album_genre = fetcher.fetch_genre("Big Lizard In My Backyard")
+# print(f"Album Genre: {album_genre}")
 
 
 # Example: Fetch genre for the album "Thriller (Michael Jackson album)"
