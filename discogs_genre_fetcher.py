@@ -8,7 +8,8 @@ class DiscogsFetcher:
         self.api_key = os.getenv("DISCOGS_API_KEY")
         self.user_agent = user_agent
 
-    def fetch_genre(self, artist_name, album_title):
+    def fetch_master_id(self, artist_name, album_title):
+        """Fetch the master_id using the search API."""
         search_url = "https://api.discogs.com/database/search"
         params = {
             'artist': artist_name,
@@ -27,9 +28,31 @@ class DiscogsFetcher:
 
         if data['results']:
             first_result = data['results'][0]
-            genres = first_result.get('genre', [])
-            styles = first_result.get('style', [])
-            return genres, styles
+            master_id = first_result.get('master_id')
+            if master_id:
+                return master_id
+
+        return None
+
+    def fetch_master_release_info(self, master_id):
+        """Fetch genres and styles using the master release API."""
+        master_url = f"https://api.discogs.com/masters/{master_id}"
+        headers = {
+            'User-Agent': self.user_agent
+        }
+
+        response = requests.get(master_url, headers=headers)
+        data = response.json()
+
+        genres = data.get('genres', [])
+        styles = data.get('styles', [])
+        return genres, styles
+
+    def fetch_genre(self, artist_name, album_title):
+        """Main method to fetch genres and styles."""
+        master_id = self.fetch_master_id(artist_name, album_title)
+        if master_id:
+            return self.fetch_master_release_info(master_id)
         else:
             return [], []
 

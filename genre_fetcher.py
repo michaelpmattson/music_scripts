@@ -16,6 +16,15 @@ class GenreFetcher:
         # Fetch genres from Discogs
         discogs_genres, discogs_styles = self.discogs_genre_fetcher.fetch_genre(artist_name, album_title)
 
+        combined = {
+            "wikipedia": wikipedia_genres,
+            "discogs": {
+                "styles": discogs_styles,
+                "genres": discogs_genres
+            }
+        }
+        # print(combined)
+
         # Combine results from both sources
         # combined_genres = sorted([genre.capitalize() for genre in set(wikipedia_genres + discogs_genres + discogs_styles)])
 
@@ -35,7 +44,10 @@ user_agent = "MyApp/0.1-dev"
 
 genre_fetcher = GenreFetcher(user_agent)
 # result = genre_fetcher.fetch_genres("Dead Milkmen", "Big Lizard In My Backyard")
-result = genre_fetcher.fetch_genres("Melvins", "Houdini")
+# result = genre_fetcher.fetch_genres("Melvins", "Houdini")
+result = genre_fetcher.fetch_genres("Beatles", "Sgt. Pepper's Lonely Hearts Club Band")
+# result = genre_fetcher.fetch_genres("Steely Dan", "Countdown To Ecstasy")
+# result = genre_fetcher.fetch_genres("Boys Town Gang", "Disc Charge")
 
 
 print(result)
