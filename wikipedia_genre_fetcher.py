@@ -3,18 +3,17 @@ import re
 from infobox_parser import InfoboxParser  # Assuming InfoboxParser is in infobox_parser.py
 
 class WikipediaGenreFetcher:
-    def __init__(self, title):
-        self.title = title
-        self.content = self.fetch_wikipedia_content()
+    def __init__(self):
+        self.content = ""
         self.infobox_data = None
 
-    def fetch_wikipedia_content(self):
+    def fetch_wikipedia_content(self, title):
         """Fetch the content of a Wikipedia page."""
         url = "https://en.wikipedia.org/w/api.php"
         params = {
             "action": "query",
             "format": "json",
-            "titles": self.title,
+            "titles": title,
             "prop": "revisions",
             "rvprop": "content",
             "rvsection": 0
@@ -28,7 +27,7 @@ class WikipediaGenreFetcher:
             # If a redirect exists, fetch the new title and retry
             new_title = page['redirects'][0]['to']
             print(f"Redirected to: {new_title}")
-            return self.fetch_wikipedia_genre(new_title)  # Recursive call with the new title
+            return self.fetch_wikipedia_content(new_title)  # Recursive call with the new title
 
         return page.get("revisions", [{}])[0].get('*', '')
 
@@ -61,15 +60,17 @@ class WikipediaGenreFetcher:
         genres = re.findall(r'\[\[(?:[^|\]]*\|)?([^]]+)\]\]', genre_field)
         return [genre.strip() for genre in genres if genre]
 
-    def fetch_genre(self):
+    def fetch_genre(self, title):
         """Main method to fetch and return the genres."""
+        self.content = self.fetch_wikipedia_content(title)
         self.parse_infobox()
         return self.extract_genre()
 
+
 # Example usage
-# fetcher = WikipediaGenreFetcher("Billie_Jean")
-# album_genre = fetcher.fetch_genre()
-# print(f"Album Genre: {album_genre}")
+fetcher = WikipediaGenreFetcher()
+album_genre = fetcher.fetch_genre("Big Lizard in My Backyard")
+print(f"Album Genre: {album_genre}")
 
 
 # Example: Fetch genre for the album "Thriller (Michael Jackson album)"
