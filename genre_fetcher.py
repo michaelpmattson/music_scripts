@@ -10,7 +10,8 @@ class GenreFetcher:
 
     def fetch_genres(self, artist_name, album_title):
         # Fetch genres from Wikipedia
-        wikipedia_genres = self.wikipedia_genre_fetcher.fetch_genre(album_title)
+        # wikipedia_genres = self.wikipedia_genre_fetcher.fetch_genre(album_title)
+        wikipedia_genres = self.wikipedia_genre_fetcher.fetch_genre(album_title, artist_name)
 
         # Fetch genres from Discogs
         discogs_genres, discogs_styles = self.discogs_genre_fetcher.fetch_genre(artist_name, album_title)
@@ -33,6 +34,8 @@ class GenreFetcher:
 user_agent = "MyApp/0.1-dev"
 
 genre_fetcher = GenreFetcher(user_agent)
-result = genre_fetcher.fetch_genres("Dead Milkmen", "Big Lizard in My Backyard")
+# result = genre_fetcher.fetch_genres("Dead Milkmen", "Big Lizard In My Backyard")
+result = genre_fetcher.fetch_genres("Melvins", "Houdini")
+
 
 print(result)

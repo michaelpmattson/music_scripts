@@ -23,6 +23,10 @@ class WikipediaGenreFetcher:
         pages = data.get("query", {}).get("pages", {})
         page = next(iter(pages.values()), {})
 
+        if 'missing' in page:
+            # print(f"Page '{title}' not found.")
+            return None
+
         content = page.get("revisions", [{}])[0].get('*', '')
 
         # Check for #REDIRECT and follow the link
@@ -63,30 +67,37 @@ class WikipediaGenreFetcher:
         genres = re.findall(r'\[\[(?:[^|\]]*\|)?([^]]+)\]\]', genre_field)
         return [genre.strip() for genre in genres if genre]
 
-    def fetch_genre(self, title):
+    def fetch_genre(self, album_title, artist_name):
         """Main method to fetch and return the genres."""
-        self.content = self.fetch_wikipedia_content(title)
+        search_titles = [
+            f"{album_title} ({artist_name} album)",
+            f"{album_title} (album)",
+            album_title
+        ]
+
+        for title in search_titles:
+            self.content = self.fetch_wikipedia_content(title)
+            if self.content:
+                break
+
+        if not self.content:
+            return []  # No valid page found
+
         self.parse_infobox()
         return self.extract_genre()
 
 
 # Example usage
 # fetcher = WikipediaGenreFetcher()
-# album_genre = fetcher.fetch_genre("Big Lizard In My Backyard")
+# album_genre = fetcher.fetch_genre("Tusk", "Camper Van Beethoven")
 # print(f"Album Genre: {album_genre}")
 
-
-# Example: Fetch genre for the album "Thriller (Michael Jackson album)"
-# album_name = "Thriller_(album)"
-# album_genre = fetch_wikipedia_genre(album_name)
+# Example usage
+# fetcher = WikipediaGenreFetcher()
+# album_genre = fetcher.fetch_genre("Big Lizard In My Backyard", "Dead Milkmen")
 # print(f"Album Genre: {album_genre}")
 
-# Example: Fetch genre for a song "Billie Jean"
-# song_name = "Billie_Jean"
-# song_genre = fetch_wikipedia_genre(song_name)
-# print(f"Song Genre: {song_genre}")
-
-# Example: Fetch genre for the album "Lysol (Melvins album)"
-# album_name = "Lysol_(album)"
-# album_genre = fetch_wikipedia_genre(album_name)
+# Example usage
+# fetcher = WikipediaGenreFetcher()
+# album_genre = fetcher.fetch_genre("Houdini", "Melvins")
 # print(f"Album Genre: {album_genre}")
