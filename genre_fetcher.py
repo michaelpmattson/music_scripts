@@ -16,13 +16,13 @@ class GenreFetcher:
         # Fetch genres from Discogs
         discogs_genres, discogs_styles = self.discogs_genre_fetcher.fetch_genre(artist_name, album_title)
 
-        combined = {
-            "wikipedia": wikipedia_genres,
-            "discogs": {
-                "styles": discogs_styles,
-                "genres": discogs_genres
-            }
-        }
+        # combined = {
+        #     "wikipedia": wikipedia_genres,
+        #     "discogs": {
+        #         "styles": discogs_styles,
+        #         "genres": discogs_genres
+        #     }
+        # }
         # print(combined)
 
         # Combine results from both sources
