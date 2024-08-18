@@ -1,6 +1,8 @@
 # Import the necessary classes
 from wikipedia_genre_fetcher import WikipediaGenreFetcher
 from discogs_genre_fetcher import DiscogsFetcher
+from genre_mapping import genre_mapping
+from genre_hierarchy import genre_hierarchy, ensure_parent_genres
 
 class GenreFetcher:
     def __init__(self, user_agent):
@@ -34,7 +36,18 @@ class GenreFetcher:
             return genre.capitalize()
 
         capitalized_genres = list(map(capitalize_genre, combined_genres))
-        sorted_genres = sorted(capitalized_genres)
+        updated_genres = [genre_mapping.get(genre, genre) for genre in capitalized_genres]
+        expanded_genres = ensure_parent_genres(updated_genres, genre_hierarchy)
+
+        def Remove(duplicate):
+            final_list = []
+            for num in duplicate:
+                if num not in final_list:
+                    final_list.append(num)
+            return final_list
+
+        deduped_genres = Remove(expanded_genres)
+        sorted_genres = sorted(deduped_genres)
 
         return sorted_genres
 
@@ -44,8 +57,8 @@ user_agent = "MyApp/0.1-dev"
 
 genre_fetcher = GenreFetcher(user_agent)
 # result = genre_fetcher.fetch_genres("Dead Milkmen", "Big Lizard In My Backyard")
-# result = genre_fetcher.fetch_genres("Melvins", "Houdini")
-result = genre_fetcher.fetch_genres("Beatles", "Sgt. Pepper's Lonely Hearts Club Band")
+result = genre_fetcher.fetch_genres("Melvins", "Houdini")
+# result = genre_fetcher.fetch_genres("Beatles", "Sgt. Pepper's Lonely Hearts Club Band")
 # result = genre_fetcher.fetch_genres("Steely Dan", "Countdown To Ecstasy")
 # result = genre_fetcher.fetch_genres("Boys Town Gang", "Disc Charge")
 
