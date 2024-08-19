@@ -4,6 +4,7 @@ genre_hierarchy = {
     alternative_rock: [rock],
     doom_metal: [heavy_metal],
     grunge: [alternative_rock],
+    progressive_rock: [rock],
     skate_punk: [punk],
     sludge_metal: [heavy_metal],
     punk: [rock],
