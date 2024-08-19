@@ -27,10 +27,10 @@ class DiscogsFetcher:
         data = response.json()
 
         if data['results']:
-            first_result = data['results'][0]
-            master_id = first_result.get('master_id')
-            if master_id:
-                return master_id
+            for result in data['results']:
+                master_id = result.get('master_id')
+                if master_id:
+                    return master_id
 
         return None
 
@@ -59,8 +59,8 @@ class DiscogsFetcher:
 # Example usage
 # user_agent = "MyDiscogsApp/0.1-dev"
 # discogs_fetcher = DiscogsFetcher(user_agent)
-# artist = "Dead Milkmen"
-# album = "Big Lizard In My Backyard"
+# artist = "Eric Clapton"
+# album = "461 Ocean Boulevard"
 #
 # genres, styles = discogs_fetcher.fetch_genre(artist, album)
 # print(f"Genres: {genres}")

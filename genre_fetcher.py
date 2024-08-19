@@ -57,12 +57,12 @@ class GenreFetcher:
 user_agent = "MyApp/0.1-dev"
 
 genre_fetcher = GenreFetcher(user_agent)
-# result = genre_fetcher.fetch_genres("Dead Milkmen", "Big Lizard In My Backyard")
-# result = genre_fetcher.fetch_genres("Melvins", "Houdini")
+# result = genre_fetcher.fetch_genres("Dead Milkmen", "Beezlebubba")
+result = genre_fetcher.fetch_genres("Eric Clapton", "461 Ocean Boulevard")
 # result = genre_fetcher.fetch_genres("Beatles", "Sgt. Pepper's Lonely Hearts Club Band")
 # result = genre_fetcher.fetch_genres("Steely Dan", "Countdown To Ecstasy")
 # result = genre_fetcher.fetch_genres("Boys Town Gang", "Disc Charge")
-result = genre_fetcher.fetch_genres("Jethro Tull", "Minstrel in the gallery")
-
+# result = genre_fetcher.fetch_genres("Deep Purple", "Come Taste the Band")
+# result = genre_fetcher.fetch_genres("Chico Buarque", "Chico Buarque de Hollanda, Vol. 2")
 
 print(result)
