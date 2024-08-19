@@ -68,6 +68,8 @@ class WikipediaGenreFetcher:
         return [genre.strip() for genre in genres if genre]
 
     def fetch_genre(self, album_title, artist_name):
+        album_title = album_title.title()
+
         """Main method to fetch and return the genres."""
         search_titles = [
             f"{album_title} ({artist_name} album)",
@@ -100,4 +102,9 @@ class WikipediaGenreFetcher:
 # Example usage
 # fetcher = WikipediaGenreFetcher()
 # album_genre = fetcher.fetch_genre("Houdini", "Melvins")
+# print(f"Album Genre: {album_genre}")
+
+# Example usage
+# fetcher = WikipediaGenreFetcher()
+# album_genre = fetcher.fetch_genre("Minstrel in the gallery", "Jethro Tull")
 # print(f"Album Genre: {album_genre}")
