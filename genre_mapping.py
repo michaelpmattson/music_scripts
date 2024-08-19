@@ -4,6 +4,7 @@ genre_mapping = {
     'Alternative': alternative_rock,
     'Alt. rock': alternative_rock,
     'Hip-hop': hip_hop,
+    'Mpb': mpb,
     'Prog rock': progressive_rock,
     'Punk rock': punk,
     'RnB': rnb,
