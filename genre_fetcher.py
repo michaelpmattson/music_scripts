@@ -48,8 +48,9 @@ class GenreFetcher:
 
         deduped_genres = Remove(expanded_genres)
         sorted_genres = sorted(deduped_genres)
+        joined_genres = '; '.join(sorted_genres)
 
-        return sorted_genres
+        return joined_genres
 
 # Example usage
 # discogs_api_key = "your_discogs_api_key"
@@ -57,10 +58,11 @@ user_agent = "MyApp/0.1-dev"
 
 genre_fetcher = GenreFetcher(user_agent)
 # result = genre_fetcher.fetch_genres("Dead Milkmen", "Big Lizard In My Backyard")
-result = genre_fetcher.fetch_genres("Melvins", "Houdini")
+# result = genre_fetcher.fetch_genres("Melvins", "Houdini")
 # result = genre_fetcher.fetch_genres("Beatles", "Sgt. Pepper's Lonely Hearts Club Band")
 # result = genre_fetcher.fetch_genres("Steely Dan", "Countdown To Ecstasy")
 # result = genre_fetcher.fetch_genres("Boys Town Gang", "Disc Charge")
+result = genre_fetcher.fetch_genres("Jethro Tull", "Minstrel in the gallery")
 
 
 print(result)
