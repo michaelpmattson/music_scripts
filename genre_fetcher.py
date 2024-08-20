@@ -54,16 +54,16 @@ class GenreFetcher:
 
 # Example usage
 # discogs_api_key = "your_discogs_api_key"
-user_agent = "MyApp/0.1-dev"
-
-genre_fetcher = GenreFetcher(user_agent)
+# user_agent = "MyApp/0.1-dev"
+#
+# genre_fetcher = GenreFetcher(user_agent)
 # result = genre_fetcher.fetch_genres("Dead Milkmen", "Beelzebubba")
 # result = genre_fetcher.fetch_genres("Eric Clapton", "461 Ocean Boulevard")
 # result = genre_fetcher.fetch_genres("Beatles", "Sgt. Pepper's Lonely Hearts Club Band")
 # result = genre_fetcher.fetch_genres("Steely Dan", "Countdown To Ecstasy")
 # result = genre_fetcher.fetch_genres("Boys Town Gang", "Disc Charge")
-# result = genre_fetcher.fetch_genres("Deep Purple", "Perfect Strangers")
+# result = genre_fetcher.fetch_genres("Superdrag", "Regretfully Yours")
 # result = genre_fetcher.fetch_genres("Chico Buarque", "Chico Buarque de Hollanda, Vol. 3")
-result = genre_fetcher.fetch_genres("Death Grips", "Exmilitary")
+# result = genre_fetcher.fetch_genres("Jethro Tull", "Songs From The Wood")
 
 print(result)
