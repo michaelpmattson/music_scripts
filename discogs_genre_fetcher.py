@@ -2,6 +2,9 @@ import requests
 import os
 from dotenv import load_dotenv
 
+import pprint
+
+
 class DiscogsFetcher:
     def __init__(self, user_agent):
         load_dotenv()
@@ -34,27 +37,38 @@ class DiscogsFetcher:
 
         return None
 
-    def fetch_master_release_info(self, master_id):
-        """Fetch genres and styles using the master release API."""
-        master_url = f"https://api.discogs.com/masters/{master_id}"
-        headers = {
-            'User-Agent': self.user_agent
-        }
-
-        response = requests.get(master_url, headers=headers)
-        data = response.json()
-
-        genres = data.get('genres', [])
-        styles = data.get('styles', [])
-        return genres, styles
-
-    def fetch_genre(self, artist_name, album_title):
+    def fetch_master_release_info(self, artist_name, album_title):
         """Main method to fetch genres and styles."""
         master_id = self.fetch_master_id(artist_name, album_title)
+
         if master_id:
-            return self.fetch_master_release_info(master_id)
+            """Fetch genres and styles using the master release API."""
+            master_url = f"https://api.discogs.com/masters/{master_id}"
+            headers = {
+                'User-Agent': self.user_agent
+            }
+            response = requests.get(master_url, headers=headers)
+            data = response.json()
+
+            master_info = {
+                'artist_name': data.get('artists')[0].get('name'),
+                'album_title': data.get('title'),
+                'tracklist': [d['title'] for d in data.get('tracklist')],
+                'genres': data.get('genres', []),
+                'styles': data.get('styles', [])
+            }
+
+            return master_info
         else:
             return [], []
+
+    # def fetch_genre(self, artist_name, album_title):
+    #     """Main method to fetch genres and styles."""
+    #     master_id = self.fetch_master_id(artist_name, album_title)
+    #     if master_id:
+    #         return self.fetch_master_release_info(master_id)
+    #     else:
+    #         return [], []
 
 # Example usage
 # user_agent = "MyDiscogsApp/0.1-dev"
