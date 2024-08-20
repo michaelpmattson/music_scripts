@@ -3,6 +3,7 @@ from genres import *
 genre_mapping = {
     'Alternative': alternative_rock,
     'Alt. rock': alternative_rock,
+    'Hardcore hip-hop': hardcore_hip_hop,
     'Hip-hop': hip_hop,
     'Mpb': mpb,
     'Prog rock': progressive_rock,
