@@ -66,4 +66,4 @@ class GenreFetcher:
 # result = genre_fetcher.fetch_genres("Chico Buarque", "Chico Buarque de Hollanda, Vol. 3")
 # result = genre_fetcher.fetch_genres("Jethro Tull", "Songs From The Wood")
 
-print(result)
+# print(result)
