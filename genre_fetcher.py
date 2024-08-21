@@ -30,8 +30,12 @@ class GenreFetcher:
         # Combine results from both sources
         # combined_genres = sorted([genre.capitalize() for genre in set(wikipedia_genres + discogs_genres + discogs_styles)])
 
-        combined_genres = list(set(wikipedia_genres + discogs_master_info['genres'] + discogs_master_info['styles']))
-
+        combined_genres = list(set(
+            wikipedia_genres +
+            discogs_master_info.get('genres', []) +
+            discogs_master_info.get('styles', [])
+        ))
+        
         def capitalize_genre(genre):
             return genre.capitalize()
 
@@ -53,17 +57,18 @@ class GenreFetcher:
         return joined_genres
 
 # Example usage
-# discogs_api_key = "your_discogs_api_key"
-# user_agent = "MyApp/0.1-dev"
+discogs_api_key = "your_discogs_api_key"
+user_agent = "MyApp/0.1-dev"
 #
-# genre_fetcher = GenreFetcher(user_agent)
+genre_fetcher = GenreFetcher(user_agent)
 # result = genre_fetcher.fetch_genres("Dead Milkmen", "Beelzebubba")
 # result = genre_fetcher.fetch_genres("Eric Clapton", "461 Ocean Boulevard")
 # result = genre_fetcher.fetch_genres("Beatles", "Sgt. Pepper's Lonely Hearts Club Band")
 # result = genre_fetcher.fetch_genres("Steely Dan", "Countdown To Ecstasy")
 # result = genre_fetcher.fetch_genres("Boys Town Gang", "Disc Charge")
 # result = genre_fetcher.fetch_genres("Superdrag", "Regretfully Yours")
-# result = genre_fetcher.fetch_genres("Chico Buarque", "Chico Buarque de Hollanda, Vol. 3")
-# result = genre_fetcher.fetch_genres("Jethro Tull", "Songs From The Wood")
+result = genre_fetcher.fetch_genres("Chico Buarque", "Chico Buarque de Hollanda Vol 4")
+# result = genre_fetcher.fetch_genres("Jethro Tull", "Stormwatch")
+# result = genre_fetcher.fetch_genres("Death Grips", "Government Plates")
 
-# print(result)
+print(result)

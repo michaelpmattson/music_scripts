@@ -60,7 +60,7 @@ class DiscogsFetcher:
 
             return master_info
         else:
-            return [], []
+            return {}
 
     # def fetch_genre(self, artist_name, album_title):
     #     """Main method to fetch genres and styles."""
@@ -76,6 +76,5 @@ class DiscogsFetcher:
 # artist = "Eric Clapton"
 # album = "461 Ocean Boulevard"
 #
-# genres, styles = discogs_fetcher.fetch_genre(artist, album)
-# print(f"Genres: {genres}")
-# print(f"Styles: {styles}")
+# info = discogs_fetcher.fetch_master_release_info(artist, album)
+# print(info)
