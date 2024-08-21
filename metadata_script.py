@@ -36,12 +36,18 @@ def update_metadata(file_path, new_title, new_artist, new_genre, capitalize_titl
 
     audio.save()
 
+def approve_update():
+    approval = input("Do you approve of the update?: (default is yes):").strip().lower()
+
+    return approval not in ['no', 'n']
+
 def process_directory(directory, new_title, new_artist, new_genre, capitalize_titles):
     """Process all MP3 files in the directory and update their metadata."""
     for filename in os.listdir(directory):
         if filename.endswith(".mp3"):
             file_path = os.path.join(directory, filename)
-            update_metadata(file_path, new_title, new_artist, new_genre, capitalize_titles)
+            if approve_update():
+                update_metadata(file_path, new_title, new_artist, new_genre, capitalize_titles)
     print("Metadata updated for all files.")
 
 def main():
